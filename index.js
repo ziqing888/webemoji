@@ -21,7 +21,7 @@ const REFERRER_ID = null;
 const WAIT_INTERVAL = 3000; 
 const ROUND_INTERVAL = 14400000; 
 
-// 加载文件数据
+
 const loadFileData = (filePath) => {
   try {
     return fs
@@ -38,17 +38,17 @@ const loadFileData = (filePath) => {
 const QUERY_IDS = loadFileData(QUERY_IDS_PATH); 
 const USER_AGENTS = loadFileData(UA_PATH);
 
-// 随机等待
+
 const randomWait = (min = 2000, max = 5000) =>
   new Promise((resolve) => setTimeout(resolve, Math.random() * (max - min) + min));
 
-// 随机选择游戏
+
 const pickGame = () => {
   const games = ['Darts', 'Football', 'Basketball'];
   return games[Math.floor(Math.random() * games.length)];
 };
 
-// 创建 Axios 客户端
+
 const getAxiosClient = (ua) => {
   return axios.create({
     headers: {
@@ -57,7 +57,7 @@ const getAxiosClient = (ua) => {
   });
 };
 
-// 登录验证
+
 const authenticate = async (queryId) => {
   const ua = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
   const client = getAxiosClient(ua);
@@ -76,7 +76,7 @@ const authenticate = async (queryId) => {
   }
 };
 
-// 领取免费票据
+
 const handleFreeTickets = async (token, client) => {
   try {
     const { data } = await client.post(
@@ -101,7 +101,7 @@ const handleFreeTickets = async (token, client) => {
   }
 };
 
-// 获取任务
+
 const getTasks = async (token, client) => {
   try {
     const { data } = await client.get('https://emojiapp.xyz/api/quests', {
@@ -122,7 +122,7 @@ const getTasks = async (token, client) => {
   }
 };
 
-// 完成任务
+
 const completeTask = async (taskId, token, client) => {
   try {
     const { data } = await client.get(
@@ -138,12 +138,12 @@ const completeTask = async (taskId, token, client) => {
   }
 };
 
-// 玩游戏并赚取积分
+
 const playWithTickets = async (token, tickets, client) => {
   for (let i = 0; i < tickets; i++) {
     const game = pickGame();
     try {
-      logGameResult(game, 0); // 0 是默认值，之后可根据实际获取的积分填充
+      logGameResult(game, 0); 
       const { data } = await client.post(
         'https://emojiapp.xyz/api/play',
         { gameName: game },
@@ -158,14 +158,14 @@ const playWithTickets = async (token, tickets, client) => {
   }
 };
 
-// 美化日志输出
+
 const logGameResult = (gameName, points) => {
   const time = new Date().toLocaleTimeString();
   const resultMessage = points > 0 
     ? chalk.green(`${points} 分`)
     : chalk.yellow(`0 分`);
 
-  // 控制台输出表格样式
+
   console.log(`
   ${chalk.bold.blue('==============================')}
   ${chalk.bold('时间:')} ${chalk.cyan(time)}
@@ -175,7 +175,7 @@ const logGameResult = (gameName, points) => {
   `);
 };
 
-// 处理单个账户
+
 const processAccount = async (queryId, index) => {
   console.log(chalk.bold.cyan(`处理账户 #${index}`));
 
@@ -199,7 +199,7 @@ const processAccount = async (queryId, index) => {
   console.log(chalk.green(`账户 #${index} 完成处理！\n`));
 };
 
-// 开始处理所有账户
+
 const startProcess = async () => {
  console.log(banner); 
   while (true) {
