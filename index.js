@@ -1,10 +1,9 @@
-const axios = require('axios');
-const fs = require('fs');
-const chalk = require('chalk'); 
+import axios from 'axios';
+import fs from 'fs';
+import chalk from 'chalk';
+
 const QUERY_IDS_PATH = 'queries.txt'; 
 const UA_PATH = 'user_agents.txt'; 
-
-
 
 const REFERRER_ID = null; 
 const WAIT_INTERVAL = 3000; 
@@ -26,16 +25,13 @@ const loadFileData = (filePath) => {
 const QUERY_IDS = loadFileData(QUERY_IDS_PATH); 
 const USER_AGENTS = loadFileData(UA_PATH); 
 
-
 const randomWait = (min = 2000, max = 5000) =>
   new Promise((resolve) => setTimeout(resolve, Math.random() * (max - min) + min));
-
 
 const pickGame = () => {
   const games = ['Darts', 'Football', 'Basketball'];
   return games[Math.floor(Math.random() * games.length)];
 };
-
 
 const getAxiosClient = (ua) => {
   return axios.create({
@@ -44,7 +40,6 @@ const getAxiosClient = (ua) => {
     },
   });
 };
-
 
 const authenticate = async (queryId) => {
   const ua = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
@@ -63,7 +58,6 @@ const authenticate = async (queryId) => {
     return null;
   }
 };
-
 
 const handleFreeTickets = async (token, client) => {
   try {
@@ -89,7 +83,6 @@ const handleFreeTickets = async (token, client) => {
   }
 };
 
-
 const getTasks = async (token, client) => {
   try {
     const { data } = await client.get('https://emojiapp.xyz/api/quests', {
@@ -110,7 +103,6 @@ const getTasks = async (token, client) => {
   }
 };
 
-
 const completeTask = async (taskId, token, client) => {
   try {
     const { data } = await client.get(
@@ -125,7 +117,6 @@ const completeTask = async (taskId, token, client) => {
     console.error(chalk.red(`任务完成失败：${taskId}`, err.response?.data || err.message));
   }
 };
-
 
 const playWithTickets = async (token, tickets, client) => {
   for (let i = 0; i < tickets; i++) {
@@ -145,7 +136,6 @@ const playWithTickets = async (token, tickets, client) => {
     await randomWait();
   }
 };
-
 
 const processAccount = async (queryId, index) => {
   console.log(chalk.bold.cyan(`处理账户 #${index}`));
@@ -169,7 +159,6 @@ const processAccount = async (queryId, index) => {
 
   console.log(chalk.green(`账户 #${index} 完成处理！\n`));
 };
-
 
 const startProcess = async () => {
   while (true) {
