@@ -2,11 +2,11 @@
 ### 1. 克隆仓库
 首先，将项目克隆到本地：
  ```
- git clone https://github.com/ziqing888/nodepay.git
+ git clone https://github.com/ziqing888/webemoji.git
  ```
 ### 2. 进入项目目录
 ```
-cd
+cd webemoji
 ```
 ###3. 安装依赖
 运行以下命令以安装所需依赖：
