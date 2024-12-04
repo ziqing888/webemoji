@@ -33,4 +33,4 @@ cd webemoji
 npm start
  ```
 
-## 📢 电报频道：https://t.me/ksqxszq
+### 📢 电报频道：https://t.me/ksqxszq
